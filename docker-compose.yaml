@@ -1,0 +1,37 @@
+version: "3"
+services:
+  api-service:
+    container_name: ft_lr_backend
+    build: ./backend/
+    volumes:
+      - ./backend/:/usr/src/api/
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    stop_signal: SIGINT
+    environment:
+      PORT: ${BACKEND_PORT}
+      FLASK_DEBUG: 1
+      FLASK_APP: app
+    networks:
+      - api_network
+    restart: unless-stopped
+
+  matcha_client:
+    container_name: ft_lr_frontend
+    build: ./frontend/
+    restart: unless-stopped
+    environment:
+      FRONT_PORT: ${FRONTEND_PORT}
+      BACK_PORT: ${BACKEND_PORT}
+      VITE_API: ${API_URL}
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    networks:
+      - api_network
+    volumes:
+      - ./frontend:/home/node/app
+      - /home/node/app/node_modules
+
+networks:
+  api_network:
+    driver: bridge
