@@ -16,14 +16,14 @@ services:
       - api_network
     restart: unless-stopped
 
-  matcha_client:
+  ft_lr_client:
     container_name: ft_lr_frontend
     build: ./frontend/
     restart: unless-stopped
     environment:
       FRONT_PORT: ${FRONTEND_PORT}
       BACK_PORT: ${BACKEND_PORT}
-      VITE_API: ${API_URL}
+      VITE_API: ${VITE_API_URL}
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     networks:

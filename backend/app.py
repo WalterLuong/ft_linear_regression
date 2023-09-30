@@ -7,7 +7,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app)
 
 
 @app.route("/")
@@ -15,7 +15,7 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/dataset")
+@app.get("/dataset")
 def dataset():
     with open("data.csv", "r") as f:
         reader = csv.reader(f)

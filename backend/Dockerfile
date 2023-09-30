@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.9.7-slim-buster
 
 RUN apt-get update
 
@@ -10,6 +10,6 @@ COPY ./ ./
 
 EXPOSE $PORT
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache -r requirements.txt
 
 CMD ["python", "./app.py"]
