@@ -4,7 +4,7 @@ RUN apk add --no-cache libc6-compat
 
 RUN mkdir /home/node/app && chown -R node:node /home/node/app
 WORKDIR /home/node/app
-USER node
+# USER node
 
 COPY --chown=node:node package.json package-lock.json* ./
 RUN yarn install
