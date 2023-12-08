@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import csv
 import pandas as pd
@@ -9,6 +9,31 @@ app = Flask(__name__)
 
 cors = CORS(app)
 
+with open("data.csv", "r") as f:
+    reader = csv.reader(f)
+    cols = next(reader)
+    # Check if the dataset is valid
+    df = pd.read_csv("data.csv", usecols=[cols[0], cols[1]])
+    if df.isnull().values.any():
+        print("There is a null value in the dataset")
+        exit(1)
+    try:
+        df = df.astype(int)
+    except ValueError:
+       print("There is a non-integer value in the dataset")
+       exit(1)
+
+X = np.array(df[cols[0]]).reshape(-1, 1)
+X_norm = X.copy()
+mu = np.mean(X, axis=0)
+sigma = np.std(X, axis=0)
+X_norm = (X - mu) / sigma
+X = X_norm
+X = np.hstack((np.ones(X.shape), X))
+Y = np.array(df[cols[1]]).reshape(-1, 1)
+iterations = 100
+learning_rate = 0.05
+theta = np.zeros((2, 1))
 
 def model(X, theta):
     return np.dot(X, theta)
@@ -36,6 +61,8 @@ def gradient_descent(X, y, theta, learning_rate, iterations, df):
         cost_history[it] = cost_function(X, y, theta)
     return theta, cost_history, theta_history
 
+
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
@@ -56,8 +83,27 @@ def dataset():
         df = df.astype(int)
     except ValueError:
         return jsonify({"error": "There is a non-integer value in the dataset"}), 400
-    np.set_printoptions(suppress=True)
     return jsonify({"data": df.values.tolist()}), 200
+
+@app.get("/model")
+def get_model():
+    global X
+    global theta
+    h = model(X, theta)
+    return jsonify({"data": h})
+
+@app.get("/values")
+def get_values():
+    return jsonify({"iterations": iterations, "learning_rate": learning_rate}), 200
+
+@app.route('/modify', methods=['POST'])
+def modify():
+    global iterations
+    global learning_rate
+    data = request.get_json()
+    iterations = data["iterations"]
+    learning_rate = data["learning_rate"]
+    return jsonify(data), 200
 
 
 if __name__ == '__main__':
