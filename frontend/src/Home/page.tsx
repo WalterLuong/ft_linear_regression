@@ -2,13 +2,12 @@ import axios from 'axios';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import ScatterPlot from './components/ScatterPlot';
 import DatasetTable from './components/DatasetTable';
-import useModel from '../hooks/useModel';
+import Plot from 'react-plotly.js';
+import LinearPlot from './components/LinearPlot';
 
 const Home = () => {
   const [iterations, setIterations] = useState<number>(100);
   const [learning_rate, setLearningRate] = useState<number>(0.05);
-  const { data, loading, error } = useModel('http://localhost:5000/model');
-  console.log(data);
   useEffect(() => {
     // Appel de la méthode GET pour récupérer la valeur actuelle de x au chargement initial
     const fetchData = async () => {
@@ -125,6 +124,7 @@ const Home = () => {
           </label>
           <button type='submit'>Modifier values</button>
         </form>
+        <LinearPlot />
       </div>
     </div>
   );

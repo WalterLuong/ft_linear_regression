@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const useModel = (url: string) => {
-  const [data, setData] = useState<String>();
+  const [data2, setData2] = useState<number[]>([]);
+  const [theta, setTheta] = useState<number[]>([]);
   const [error, setError] = useState<String>('');
   const [loading, setLoading] = useState<Boolean>(false);
 
@@ -11,7 +12,8 @@ const useModel = (url: string) => {
       try {
         setLoading(true);
         const response = await axios.get(url);
-        setData(response.data.data);
+        setData2(response.data.data);
+        setTheta(response.data.theta);
       } catch (err) {
         setError('Erreur lors de la requête');
       } finally {
@@ -20,7 +22,7 @@ const useModel = (url: string) => {
     })();
   }, [url]);
 
-  return { data, error, loading };
+  return { data2, theta, error, loading };
 };
 
 export default useModel;

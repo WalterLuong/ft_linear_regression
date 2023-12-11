@@ -28,9 +28,11 @@ def gradient_descent(X, y, theta, learning_rate, iterations, df):
         theta = theta - learning_rate * gradient(X, y, theta)
         theta_history[it, :] = theta.T
         cost_history[it] = cost_function(X, y, theta)
+        plt.clf()
         plt.plot(df[cols[0]], model(X, theta), color="red")
+        plt.scatter(df[cols[0]], df[cols[1]])
         plt.draw()
-        plt.pause(0.1)
+        plt.pause(0.01)
     return theta, cost_history, theta_history
 
 
@@ -95,11 +97,17 @@ if __name__ == "__main__":
     # NOT NORMALIZED
     theta, cost_history, theta_history = gradient_descent(
         X, Y, theta, learning_rate, iterations, df)
-
+    X2 = df[cols[0]].tolist()
+    print(X2)
+    print(theta[0][0])
+    modelll = [c * theta[1] + theta[0] for c in X2]
+    print('Model est: ', modelll)
     # plt.plot(df[cols[0]], model(X, theta), color="red")
 
     print("\033[32mTheta\033[0m")
     print(theta)
+    price = 120000
+    print(f'le prix est: {(price - mu)/sigma * theta[1][0] + theta[0][0]}')
     # print("\033[32mCost History\033[0m")
     # print(cost_history)
     # print("\033[32mTheta History\033[0m")

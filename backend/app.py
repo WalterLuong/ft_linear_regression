@@ -87,10 +87,24 @@ def dataset():
 
 @app.get("/model")
 def get_model():
-    global X
     global theta
-    h = model(X, theta)
-    return jsonify({"data": h})
+    global X
+    global Y
+    global iterations
+    global learning_rate
+    theta, cost_history, theta_history = gradient_descent(X, Y, theta, learning_rate, iterations, df)
+    return jsonify({"data": [l[0] for l in model(X, theta).tolist()], "theta" : [l[0] for l in theta.tolist()]}), 200
+
+@app.post("/predict")
+def predict():
+    global theta
+    global mu
+    global sigma
+    data = request.get_json()
+    x = data["x"]
+    x = (x - mu) / sigma
+    y = x * theta[1] + theta[0]
+    return jsonify({"data": y[0]}), 200
 
 @app.get("/values")
 def get_values():

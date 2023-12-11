@@ -24,7 +24,7 @@ const ScatterPlot = () => {
           orientation: 'h',
         }}
         style={{ width: '100%', height: '100%' }}
-        config={{ displayModeBar: false }}
+        // config={{ displayModeBar: false }}
       />
     </div>
   );
