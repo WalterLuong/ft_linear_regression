@@ -65,7 +65,7 @@ def gradient_descent(X, y, theta, learning_rate, iterations, df):
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return "<h1>Hello, World!</h1>"
 
 
 @app.get("/dataset")
@@ -104,7 +104,7 @@ def predict():
     x = data["x"]
     x = (x - mu) / sigma
     y = x * theta[1] + theta[0]
-    return jsonify({"data": y[0]}), 200
+    return jsonify({"data": y[0]//1}), 200
 
 @app.get("/values")
 def get_values():
@@ -114,9 +114,14 @@ def get_values():
 def modify():
     global iterations
     global learning_rate
+    global theta
+
     data = request.get_json()
     iterations = data["iterations"]
     learning_rate = data["learning_rate"]
+    theta = np.zeros((2, 1))
+    theta, cost_history, theta_history = gradient_descent(X, Y, theta, learning_rate, iterations, df)
+
     return jsonify(data), 200
 
 

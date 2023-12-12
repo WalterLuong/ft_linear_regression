@@ -31,7 +31,7 @@ const Home = () => {
   };
 
   const handleChange2 = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewValue2(parseInt(event.target.value, 10));
+    setNewValue2(parseFloat(event.target.value));
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <div className='lg:px-10 w-full h-max flex flex-col overflow-hidden '>
-      <h1 className='my-10 self-center bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 inline-block text-transparent bg-clip-text text-7xl font-bold'>
+      <h1 className='my-10 self-center bg-gradient-to-r from-blue-600 via-yellow-500 to-red-600 inline-block text-transparent bg-clip-text text-7xl font-bold'>
         FT_LINEAR_REGRESSION
       </h1>
       <p>
@@ -113,18 +113,29 @@ const Home = () => {
             Nouvelle valeur de x :
             <input
               type='number'
+              step='1'
+              min='0'
+              max='10000'
               value={newValue.toString()}
               onChange={handleChange}
+              className='bg-blue-400 rounded-full px-2 border-2 border-black ml-2'
             />
             <input
               type='number'
+              step='0.01'
+              min='0'
+              max='1'
               value={newValue2.toString()}
               onChange={handleChange2}
             />
           </label>
-          <button type='submit'>Modifier values</button>
+          <button
+            type='submit'
+            className='rounded-lg  bg-green-400 lg:bg-red-400 px-5 border-2 border-black'>
+            Modifier values
+          </button>
         </form>
-        <LinearPlot />
+        <LinearPlot iterations={iterations} learning_rate={learning_rate} />
       </div>
     </div>
   );
