@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useModel = (url: string) => {
+const useModel = (url: string, iterations: number, learning_rate: number) => {
   const [data2, setData2] = useState<number[]>([]);
   const [theta, setTheta] = useState<number[]>([]);
   const [error, setError] = useState<String>('');
@@ -20,7 +20,7 @@ const useModel = (url: string) => {
         setLoading(false);
       }
     })();
-  }, [url]);
+  }, [url, iterations, learning_rate]);
 
   return { data2, theta, error, loading };
 };

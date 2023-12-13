@@ -106,8 +106,8 @@ def predict():
     y = x * theta[1] + theta[0]
     return jsonify({"data": y[0]//1}), 200
 
-@app.get("/values")
-def get_values():
+@app.get("/parameters")
+def get_parameters():
     return jsonify({"iterations": iterations, "learning_rate": learning_rate}), 200
 
 @app.route('/modify', methods=['POST'])

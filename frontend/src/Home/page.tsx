@@ -1,54 +1,8 @@
-import axios from 'axios';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import ScatterPlot from './components/ScatterPlot';
 import DatasetTable from './components/DatasetTable';
-import Plot from 'react-plotly.js';
-import LinearPlot from './components/LinearPlot';
+import LinearPlotView from './components/LinearPlotting/LinearPlotView';
 
 const Home = () => {
-  const [iterations, setIterations] = useState<number>(100);
-  const [learning_rate, setLearningRate] = useState<number>(0.05);
-  useEffect(() => {
-    // Appel de la méthode GET pour récupérer la valeur actuelle de x au chargement initial
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/values');
-        setIterations(response.data.iterations);
-        setLearningRate(response.data.learning_rate);
-      } catch (error) {
-        console.error('Erreur lors de la récupération de x :', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const [newValue, setNewValue] = useState<number>(100); // Valeur par défaut de l'input
-  const [newValue2, setNewValue2] = useState<number>(0.05); // Valeur par défaut de l'input
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewValue(parseInt(event.target.value, 10));
-  };
-
-  const handleChange2 = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewValue2(parseFloat(event.target.value));
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/modify', {
-        iterations: newValue,
-        learning_rate: newValue2,
-      });
-      setIterations(newValue);
-      setLearningRate(newValue2);
-      console.log('La valeur de x a été modifiée avec succès !');
-    } catch (error) {
-      console.error('Erreur lors de la modification de x :', error);
-    }
-  };
-
   return (
     <div className='lg:px-10 w-full h-max flex flex-col overflow-hidden '>
       <h1 className='my-10 self-center bg-gradient-to-r from-blue-600 via-yellow-500 to-red-600 inline-block text-transparent bg-clip-text text-7xl font-bold'>
@@ -105,37 +59,8 @@ const Home = () => {
           <br />
           Nous chercherons les valeurs de a et b.
         </p>
-        {iterations && <div>{`Nombre d'itérations : ${iterations}`}</div>}
-        {learning_rate && <div>{`Learning rate : ${learning_rate}`}</div>}
-        <p> Changer les valeurs :</p>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nouvelle valeur de x :
-            <input
-              type='number'
-              step='1'
-              min='0'
-              max='10000'
-              value={newValue.toString()}
-              onChange={handleChange}
-              className='bg-blue-400 rounded-full px-2 border-2 border-black ml-2'
-            />
-            <input
-              type='number'
-              step='0.01'
-              min='0'
-              max='1'
-              value={newValue2.toString()}
-              onChange={handleChange2}
-            />
-          </label>
-          <button
-            type='submit'
-            className='rounded-lg  bg-green-400 lg:bg-red-400 px-5 border-2 border-black'>
-            Modifier values
-          </button>
-        </form>
-        <LinearPlot iterations={iterations} learning_rate={learning_rate} />
+
+        <LinearPlotView />
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function useValues(url: string) {
-  const [iterations, setIterations] = useState<number>(0);
+export default function useParameters(
+  url: string,
+  iterations: number,
+  learningRate: number
+) {
+  const [iter, setIterations] = useState<number>(0);
   const [learning_rate, setLearningRate] = useState<number>(0);
 
   useEffect(() => {
@@ -12,12 +16,10 @@ export default function useValues(url: string) {
         setIterations(response.data.iterations);
         setLearningRate(response.data.learning_rate);
       } catch (err) {
-        setError('Erreur lors de la requête');
-      } finally {
-        setLoading(false);
+        console.log(err);
       }
     })();
-  }, []);
+  }, [url, iterations, learningRate]);
 
-  return { iterations, learning_rate, error2, loading2 };
+  return { iter, learning_rate };
 }
