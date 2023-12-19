@@ -59,7 +59,7 @@ const Home = () => {
           <br />
           Nous chercherons les valeurs de a et b.
         </p>
-
+        <img src='matrice.png' alt='matrice' width={500} height={500} />
         <LinearPlotView />
       </div>
     </div>

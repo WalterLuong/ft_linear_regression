@@ -61,7 +61,7 @@ def gradient_descent(X, y, theta, learning_rate, iterations, df):
         cost_history[it] = cost_function(X, y, theta)
     return theta, cost_history, theta_history
 
-
+theta, cost_history, theta_history = gradient_descent(X, Y, theta, learning_rate, iterations, df)
 
 @app.route("/")
 def hello_world():
@@ -89,10 +89,6 @@ def dataset():
 def get_model():
     global theta
     global X
-    global Y
-    global iterations
-    global learning_rate
-    theta, cost_history, theta_history = gradient_descent(X, Y, theta, learning_rate, iterations, df)
     return jsonify({"data": [l[0] for l in model(X, theta).tolist()], "theta" : [l[0] for l in theta.tolist()]}), 200
 
 @app.post("/predict")
@@ -110,12 +106,26 @@ def predict():
 def get_parameters():
     return jsonify({"iterations": iterations, "learning_rate": learning_rate}), 200
 
+@app.get("/costfunction")
+def get_cost_function():
+    global cost_history
+    return jsonify({"data": [l//1 for l in cost_history.tolist()]}), 200
+
+@app.get("/thetahistory")
+def get_theta_history():
+    global theta_history
+    # return jsonify({"theta0": [l[0]//1 for l in theta_history.tolist()], 'theta1' : [l[1]//1 for l in theta_history.tolist()]}), 200
+    global iterations
+    theta0  = list(range(0, 10000, 100))
+    theta1 = list(range(-2000, 2000, 40))
+    return jsonify({"theta0": theta0, 'theta1' : theta1}), 200
+
 @app.route('/modify', methods=['POST'])
 def modify():
     global iterations
     global learning_rate
     global theta
-
+    global cost_history
     data = request.get_json()
     iterations = data["iterations"]
     learning_rate = data["learning_rate"]

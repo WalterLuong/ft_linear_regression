@@ -15,15 +15,13 @@ const ScatterPlot = () => {
           },
         ]}
         layout={{
+          height: 500,
           title: 'Voici sa représentation graphique',
           xaxis: { title: 'KM', tick0: 0, showline: true },
           yaxis: { title: 'Prix', tick0: 0, showline: true },
-          responsive: true,
-          useResizeHandler: true,
-          autosize: true,
         }}
         style={{ width: '100%', height: '100%' }}
-        // config={{ displayModeBar: false }}
+        config={{ responsive: true }}
       />
     </div>
   );

@@ -98,10 +98,9 @@ if __name__ == "__main__":
     theta, cost_history, theta_history = gradient_descent(
         X, Y, theta, learning_rate, iterations, df)
     X2 = df[cols[0]].tolist()
-    print(X2)
-    print(theta[0][0])
-    modelll = [c * theta[1] + theta[0] for c in X2]
-    print('Model est: ', modelll)
+
+    print('theta history:', theta_history)
+    print('cost history:', cost_history)
     # plt.plot(df[cols[0]], model(X, theta), color="red")
 
     print("\033[32mTheta\033[0m")
