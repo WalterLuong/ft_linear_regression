@@ -28,6 +28,11 @@ const CostFunctionPlot = (props: CostFunctionPlotProps) => {
         xaxis: { title: 'Itérations', tick0: 0, showline: true },
         yaxis: { title: 'J(θ)', tick0: 0, showline: true },
         transition: transition,
+        plot_bgcolor: 'white',
+        paper_bgcolor: '#1F2937',
+        font: {
+          color: 'white',
+        },
       }}
       style={{ width: '100%', height: '100%' }}
       config={{ responsive: true }}

@@ -26,13 +26,11 @@ const GradientDescentPlot = (props: GradientDescentPlotProps) => {
         title: 'Représentation graphique de la fonction coût',
         xaxis: { title: 'Itérations', tick0: 0, showline: true },
         yaxis: { title: 'J(θ)', tick0: 0, showline: true },
-        responsive: true,
-        useResizeHandler: true,
         autosize: true,
-        // transition: transition,
+        transition: transition,
       }}
       style={{ width: '100%', height: '100%' }}
-      // config={{ displayModeBar: false }}
+      config={{ responsive: true }}
     />
   );
 };

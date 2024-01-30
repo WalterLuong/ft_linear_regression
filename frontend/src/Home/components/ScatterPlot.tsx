@@ -4,7 +4,7 @@ import useDataset from '../../hooks/useDataset';
 const ScatterPlot = () => {
   const { dataset } = useDataset('http://localhost:5000/dataset');
   return (
-    <div className='w-full lg:w-[80%] flex justify-center self-center'>
+    <div className=''>
       <Plot
         data={[
           {
@@ -19,6 +19,11 @@ const ScatterPlot = () => {
           title: 'Voici sa représentation graphique',
           xaxis: { title: 'KM', tick0: 0, showline: true },
           yaxis: { title: 'Prix', tick0: 0, showline: true },
+          plot_bgcolor: 'white',
+          paper_bgcolor: '#1F2937',
+          font: {
+            color: 'white',
+          },
         }}
         style={{ width: '100%', height: '100%' }}
         config={{ responsive: true }}

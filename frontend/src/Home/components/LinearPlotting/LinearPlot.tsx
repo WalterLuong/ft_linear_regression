@@ -23,7 +23,7 @@ const LinearPlot = (props: LinearPlotProps) => {
   };
 
   return (
-    <div className='w-full lg:w-[80%] flex justify-center self-center flex-col'>
+    <div className=''>
       <Plot
         data={[
           {
@@ -44,7 +44,7 @@ const LinearPlot = (props: LinearPlotProps) => {
             x: props.xPredictions,
             y: props.yPredictions,
             mode: 'markers',
-            marker: { color: 'green' },
+            marker: { color: 'green', symbol: 'x', size: 10 },
             name: 'Prediction',
           },
         ]}
@@ -55,6 +55,11 @@ const LinearPlot = (props: LinearPlotProps) => {
           yaxis: { title: 'Prix', tick0: 0, showline: true },
           useResizeHandler: true,
           transition: transition,
+          plot_bgcolor: 'white',
+          paper_bgcolor: '#1F2937',
+          font: {
+            color: 'white',
+          },
         }}
         style={{ width: '100%', height: '100%' }}
         config={{ responsive: true }}

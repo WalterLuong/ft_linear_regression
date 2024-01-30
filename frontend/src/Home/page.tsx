@@ -1,13 +1,15 @@
-import ScatterPlot from './components/ScatterPlot';
 import DatasetTable from './components/DatasetTable';
 import LinearPlotView from './components/LinearPlotting/LinearPlotView';
+import ScatterPlot from './components/ScatterPlot';
 
 const Home = () => {
   return (
-    <div className='lg:px-10 w-full h-max flex flex-col overflow-hidden '>
-      <h1 className='my-10 self-center bg-gradient-to-r from-blue-600 via-yellow-500 to-red-600 inline-block text-transparent bg-clip-text text-7xl font-bold'>
-        FT_LINEAR_REGRESSION
-      </h1>
+    <div className='w-full h-max flex flex-col overflow-auto bg-gray-800 text-white'>
+      <div className='w-full bg-gray-900 flex flex-col bg-opacity-50 backdrop-blur-sm sticky top-0 left-0'>
+        <h1 className='my-10 self-center bg-white hover:bg-gradient-to-r hover:from-red-800 hover:via-red-300 hover:to-red-800 inline-block text-transparent bg-clip-text text-3xl lg:text-5xl font-bold transition-all ease-in-out duration-200'>
+          FT_LINEAR_REGRESSION
+        </h1>
+      </div>
       <p>
         La <span className='font-bold text-red-700'>régression linéaire</span>{' '}
         est une technique d'analyse de données qui prédit la valeur de données
@@ -34,7 +36,8 @@ const Home = () => {
       </p>
       <h1
         id='dataset'
-        className='font-bold text-3xl my-5 w-full shadow-[inset_0px_-25px_15px_-20px_pink]'>
+        className='font-bold text-3xl my-5 w-full border-b border-white pb-2'
+      >
         Le dataset
       </h1>
       <p>
@@ -50,7 +53,9 @@ const Home = () => {
         Nous avons le tableau suivant :
       </p>
       <DatasetTable />
-      <ScatterPlot />
+      <div className=' my-5 px-5 rounded-lg'>
+        <ScatterPlot />
+      </div>
       <div>
         <p className='flex flex-col'>
           Nous voyons que la répartition des données est linéaire. <br />

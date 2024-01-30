@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 export type PredictionFormProps = {
   xSubmit: number;
@@ -40,10 +40,12 @@ const PredictionForm = (props: PredictionFormProps) => {
         type='number'
         value={props.xSubmit.toString()}
         onChange={handleChange}
+        className='w-32'
       />
       <button
         type='submit'
-        className='w-max border-black border-2 rounded-full px-5 bg-yellow-400'>
+        className='w-max border-black border-2 rounded-full px-5 bg-yellow-400'
+      >
         Prédire
       </button>
     </form>

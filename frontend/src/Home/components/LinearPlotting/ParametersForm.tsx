@@ -48,30 +48,35 @@ const ParametersForm = (props: ParametersFormProps) => {
         <span className='font-bold'>Iterations :</span> {iter} <br />
         <span className='font-bold'>Learning rate :</span> {learning_rate}
       </p>
-      <form onSubmit={handleSubmit} className='flex flex-col'>
-        <label>Changer les itérations:</label>
-        <input
-          type='number'
-          step='1'
-          min='0'
-          max='10000'
-          value={iterationsForm.toString()}
-          onChange={handleChangeIteration}
-          className='bg-blue-400 rounded-full px-2 border-2 border-black ml-2 w-max'
-        />
-        <label>Changer le learning rate :</label>
-        <input
-          type='number'
-          step='0.01'
-          min='0'
-          max='1'
-          value={learningRateForm.toString()}
-          onChange={handleChangeLearningRate}
-          className='bg-blue-400 rounded-full px-2 border-2 border-black ml-2 w-max'
-        />
+      <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+        <div className='flex gap-5'>
+          <label>Changer les itérations:</label>
+          <input
+            type='number'
+            step='1'
+            min='0'
+            max='10000'
+            value={iterationsForm.toString()}
+            onChange={handleChangeIteration}
+            className='text-black outline-none px-2 w-32 text-right bg-gray-600 backdrop-blur-xl'
+          />
+        </div>
+        <div className='flex gap-5'>
+          <label>Changer le learning rate :</label>
+          <input
+            type='number'
+            step='0.01'
+            min='0'
+            max='1'
+            value={learningRateForm.toString()}
+            onChange={handleChangeLearningRate}
+            className='bg-blue-400 rounded-full px-2 border-2 border-black ml-2 w-max'
+          />
+        </div>
         <button
           type='submit'
-          className='rounded-lg  bg-green-400 lg:bg-red-400 px-5 border-2 border-black w-max'>
+          className='rounded-lg  bg-green-400 lg:bg-red-400 px-5 border-2 border-black w-max'
+        >
           Modifier les paramètres
         </button>
       </form>
